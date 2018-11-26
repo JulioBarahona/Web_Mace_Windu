@@ -1,5 +1,5 @@
 import React from "react"
-import img from './floor.png'
+import img from './Images/floor.png'
 
 const styles = {
 	width: '2%',
@@ -7,7 +7,7 @@ const styles = {
 	display: "inline-block"
 }
 
-export default class Floor extends React.Component{
+export default class Space extends React.Component{
 	render(){
 		return <div style = {styles} />
 	}

@@ -1,5 +1,5 @@
 import React from "react"
-import img from './Images/wall1.png'
+import img from './Images/victory.png'
 
 const styles = {
 	width: '2%',
@@ -7,7 +7,7 @@ const styles = {
 
 }
 
-export default class Minus extends React.Component{
+export default class Victory extends React.Component{
 	render(){
 		return <img style = {styles} src = {img}/>
 	}

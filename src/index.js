@@ -1,8 +1,5 @@
-//
-import React from 'react';
-import ReactDOM from 'react-dom';
-//selects the files from the src folder
-import Laberinto from "./final"
+import ReactDom from "react-dom"
+import Laberinto from "./laberinto"
+import React from "react"
 
-ReactDom.render(<Laberinto />,document.getElementById("maze"))
-module.hot.accept();
+ReactDom.render(<Laberinto />,document.getElementById("app"))

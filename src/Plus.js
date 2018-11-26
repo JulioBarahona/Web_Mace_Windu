@@ -1,5 +1,5 @@
 import React from "react"
-import img from './wall2.png'
+import img from './Images/wall2.png'
 
 const styles = {
 	width: '2%',
