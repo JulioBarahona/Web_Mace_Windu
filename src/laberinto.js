@@ -20,53 +20,54 @@ const styles = {
 	backgroundSize: 1080
 }
 
-export default class Laberinto extends React.Component{
+export default class maze extends React.Component{
    //shape, maze and position
 	constructor(){
 		super()
 		this.state = {
             sprite: Personaje,
-            laberinto:[],
+            maze:[],
             x:1,
             y:1
 		}
-
 	}
  
     //Fetchs data from server
     componentDidMount() {
         var self = this;
         $.getJSON("http://34.210.35.174:3001/?type=json&w=8&h=8",function(data){
-            self.setState({laberinto:data})
-        })
-    
-		}
+            self.setState({maze:data})
+        })}
 
     //moves, changes and checks the condition of player
 	handleKeyDown(e) {
-
 		e.preventDefault()
 
         if (e.key === "ArrowLeft") {
+            //changes sprite based on key
             var self = this;
             self.setState({sprite: Left})
-            const movimientosLab = this.state.laberinto
-            if(movimientosLab[this.state.y][this.state.x-1] == " "){
-                
-                movimientosLab[this.state.y][this.state.x] = " "
-                movimientosLab[this.state.y][this.state.x-1] = "p"
+            //gets the corrent position and starts to get x and y
+            const mazePosition = this.state.maze
+
+            //only if the coordinate to the desired place (left) is a space i will move
+            if(mazePosition[this.state.y][this.state.x-1] == " "){
+                mazePosition[this.state.y][this.state.x] = " "
+                mazePosition[this.state.y][this.state.x-1] = "p"
+
+                //moves the player and updates the maze
                 this.setState({
                     x: this.state.x -1,
-                    laberinto: movimientosLab
+                    maze: mazePosition
                 })
             }
-            if(movimientosLab[this.state.y][this.state.x+1] == "g"){
-                
-                movimientosLab[this.state.y][this.state.x] = " "
-                movimientosLab[this.state.y][this.state.x+1] = "p"
+            //checks if player go to the goal
+            if(mazePosition[this.state.y][this.state.x-1] == "g"){
+                mazePosition[this.state.y][this.state.x] = " "
+                mazePosition[this.state.y][this.state.x-1] = "p"
                 this.setState({
                     x: this.state.x +1,
-                    laberinto: movimientosLab,
+                    maze: mazePosition,
     
                 })
                 var self = this;
@@ -78,24 +79,22 @@ export default class Laberinto extends React.Component{
         if (e.key === "ArrowRight") {
             var self = this;
             self.setState({sprite: Right})
-        	const movimientosLab = this.state.laberinto
-        	if(movimientosLab[this.state.y][this.state.x+1] == " "){
-        		
-            	movimientosLab[this.state.y][this.state.x] = " "
-            	movimientosLab[this.state.y][this.state.x+1] = "p"
+        	const mazePosition = this.state.maze
+        	if(mazePosition[this.state.y][this.state.x+1] == " "){
+            	mazePosition[this.state.y][this.state.x] = " "
+            	mazePosition[this.state.y][this.state.x+1] = "p"
             	this.setState({
                 	x: this.state.x +1,
-                	laberinto: movimientosLab
+                	maze: mazePosition
 
             	})
         	} 
-        	if(movimientosLab[this.state.y][this.state.x+1] == "g"){
-        		
-            	movimientosLab[this.state.y][this.state.x] = " "
-            	movimientosLab[this.state.y][this.state.x+1] = "p"
+        	if(mazePosition[this.state.y][this.state.x+1] == "g"){
+            	mazePosition[this.state.y][this.state.x] = " "
+            	mazePosition[this.state.y][this.state.x+1] = "p"
             	this.setState({
                 	x: this.state.x +1,
-                	laberinto: movimientosLab,
+                	maze: mazePosition,
                 	
             	})
                 var self = this;
@@ -108,22 +107,21 @@ export default class Laberinto extends React.Component{
         if (e.key === "ArrowUp") {
             var self = this;
             self.setState({sprite: Up})
-            const movimientosLab = this.state.laberinto
-        	if(movimientosLab[this.state.y-1][this.state.x] == " "){
-            	movimientosLab[this.state.y][this.state.x] = " "
-            	movimientosLab[this.state.y-1][this.state.x] = "p"
+            const mazePosition = this.state.maze
+        	if(mazePosition[this.state.y-1][this.state.x] == " "){
+            	mazePosition[this.state.y][this.state.x] = " "
+            	mazePosition[this.state.y-1][this.state.x] = "p"
             	this.setState({
                 	y: this.state.y -1,
-                	laberinto: movimientosLab
+                	maze: mazePosition
             	})
         	}
-        	if(movimientosLab[this.state.y][this.state.x+1] == "g"){
-        		
-            	movimientosLab[this.state.y][this.state.x] = " "
-            	movimientosLab[this.state.y][this.state.x+1] = "p"
+        	if(mazePosition[this.state.y][this.state.y+1] == "g"){
+            	mazePosition[this.state.y][this.state.x] = " "
+            	mazePosition[this.state.y][this.state.y+1] = "p"
             	this.setState({
                 	x: this.state.x +1,
-                	laberinto: movimientosLab,
+                	maze: mazePosition,
                 	
             	})
                 var self = this;
@@ -135,23 +133,21 @@ export default class Laberinto extends React.Component{
         if (e.key === "ArrowDown") {
             var self = this;
             self.setState({sprite: Down})
-            const movimientosLab = this.state.laberinto
-        	if(movimientosLab[this.state.y+1][this.state.x] == " "){
-        		
-            	movimientosLab[this.state.y][this.state.x] = " "
-            	movimientosLab[this.state.y+1][this.state.x] = "p"
+            const mazePosition = this.state.maze
+        	if(mazePosition[this.state.y+1][this.state.x] == " "){
+            	mazePosition[this.state.y][this.state.x] = " "
+            	mazePosition[this.state.y+1][this.state.x] = "p"
             	this.setState({
                 	y: this.state.y + 1,
-                	laberinto: movimientosLab
+                	maze: mazePosition
             	})
         	}
-        	if(movimientosLab[this.state.y][this.state.x+1] == "g"){
-        		
-            	movimientosLab[this.state.y][this.state.x] = " "
-            	movimientosLab[this.state.y][this.state.x+1] = "p"
+        	if(mazePosition[this.state.y+1][this.state.x] == "g"){
+            	mazePosition[this.state.y][this.state.x] = " "
+            	mazePosition[this.state.y+1][this.state.x] = "p"
             	this.setState({
                 	x: this.state.x +1,
-                	laberinto: movimientosLab,
+                	maze: mazePosition,
                 	
             	})
                 var self = this;
@@ -164,9 +160,9 @@ export default class Laberinto extends React.Component{
     }
 
 	render(){
-		return <div id="Laberinto" style = {styles} onKeyDown = {this.handleKeyDown.bind(this)} tabIndex = "0">
+		return <div id="maze" style = {styles} onKeyDown = {this.handleKeyDown.bind(this)} tabIndex = "0">
 			{
-				this.state.laberinto.map(row=>{
+				this.state.maze.map(row=>{
 					let columns = row.map(column =>{
 						if(column== "+")
 						{
